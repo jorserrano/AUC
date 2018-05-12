@@ -1,0 +1,23 @@
+
+
+    .content-body th{
+        text-align: center;
+    }
+
+
+    .numeric{
+        text-align: right;
+    }
+
+    .content-body {
+        font-size: 1rem;
+    }
+
+    .content-body td{
+        line-height: 1.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .card{
+        cursor: pointer;
+    }
