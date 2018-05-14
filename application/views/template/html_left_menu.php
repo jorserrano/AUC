@@ -13,17 +13,17 @@
                    class="ft-droplet ft-minus"></i>
             </li>
             <li class=" nav-item">
-                <a href="<?= $url ?>/Indicadores/index">
+                <a href="" onclick="return false;">
                     <i class="ft-pocket"></i><span data-i18n="" class="menu-title">Resultado</span>
                 </a>
             </li>
             <li class=" nav-item">
-                <a href="<?= $url ?>/Indicadores/index">
+                <a href="" onclick="return false;">
                     <i class="ft-pocket"></i><span data-i18n="" class="menu-title">Balance</span>
                 </a>
             </li>
             <li class=" nav-item">
-                <a href="<?= $url ?>/Indicadores/index">
+                <a href="" onclick="return false;">
                     <i class="ft-pocket"></i><span data-i18n="" class="menu-title">Comprobaci&oacute;n</span>
                 </a>
             </li>

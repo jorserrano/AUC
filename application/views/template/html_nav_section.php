@@ -1,3 +1,5 @@
+
+
 <nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-gradient-x-grey-blue">
     <div class="navbar-wrapper">
         <div class="navbar-header">
@@ -18,7 +20,7 @@
                 <ul class="nav navbar-nav mr-auto float-left">
                     <li class="nav-item d-none d-md-block"><a href="#" class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="ft-menu"></i></a></li>
 
-                    <li class="nav-item d-none d-md-block"><a href="<?= $url ?>/AUCReportes" class="nav-link nav-link-expand">Sistemas de Reportería</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="<?= $url ?>/AUCReportes" class="nav-link ">Sistemas de Reportería</a></li>
                 </ul>
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-user nav-item">

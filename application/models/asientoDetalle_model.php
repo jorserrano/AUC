@@ -12,11 +12,11 @@ class asientoDetalle_model extends CI_Model{
 
 
 
+    //Asientos Comprobación
+    public function getAsientoDetalle($anno, $mes, $compania){
 
-    public function getAsientoDetalle($anno, $mes){
 
-
-        $sql = $this->getQuery($anno, $mes);
+        $sql = $this->getQuery($anno, $mes, $compania);
 
        //echo $sql;
 
@@ -31,9 +31,56 @@ class asientoDetalle_model extends CI_Model{
 
     }
 
-    public function getQuery($anno, $mes){
+    
+    
+    //Totales Situación
+    public function getAsientosSituacionTotales($anno, $mes, $compania){
 
-        $sql = " CALL GEN_REP_BALANCE_COMPROBAC(2017,10, 1);";
+
+        $sql1 =  "CALL SP_REP_SITUACION_TOTALES($anno,$mes, $compania);";
+
+       //echo $sql;
+        
+        
+        if (mysqli_more_results($this->db->conn_id)) {
+            mysqli_next_result($this->db->conn_id);
+        }
+        
+
+        $query1 = $this->db->query($sql1);
+
+        $result = $query1->result();
+
+        $arr = $this->parseAsientosSituacion($result);
+
+        //var_dump($sql);
+        return $arr;
+
+    }
+
+    //Detalle Asientos Situación
+    public function getAsientosSituacionDetalle($anno, $mes, $compania){
+
+
+        $sql =  "CALL SP_REP_SITUACION_DETALLE($anno,$mes, $compania);";
+
+       //echo $sql;
+
+        $query = $this->db->query($sql);
+
+        $result = $query->result();
+
+        $arr = $this->parseAsientosSituacion($result);
+
+        //var_dump($sql);
+        return $arr;
+
+    }
+    
+    
+    public function getQuery($anno, $mes, $compania){
+
+        $sql = " CALL GEN_REP_BALANCE_COMPROBAC($anno,$mes, $compania);";
 
         return $sql;
 
@@ -87,4 +134,36 @@ class asientoDetalle_model extends CI_Model{
         return $asientoNuevo;
     }
 
+    
+    function parseAsientosSituacion($arr){
+        $result = Array();
+        if(is_array($arr) && count($arr) > 0){
+            foreach ($arr as $asiento){
+                $result[] = $this->parseAsientoSituacion($asiento);
+            }
+        }
+        return $result;
+    }
+
+    function parseAsientoSituacion($asiento ){
+        $asientoNuevo = new stdClass();
+        $asientoNuevo->cuenta = isset($asiento->CUENTA)?$asiento->CUENTA:"";
+        $asientoNuevo->descripcion = isset($asiento->DESCRIPCION)?$asiento->DESCRIPCION:"";
+
+        $asientoNuevo->saldoAnterior = isset($asiento->SALDO_ANTERIOR)?$asiento->SALDO_ANTERIOR:"";
+        $asientoNuevo->mensual = isset($asiento->MENSUAL)?$asiento->MENSUAL:"";
+
+        $asientoNuevo->saldoActual = isset($asiento->ACUM_MES)?$asiento->ACUM_MES:"";
+  
+        $asientoNuevo->esDetalle = isset($asiento->ES_DETALLE)?$asiento->ES_DETALLE:"";
+        $asientoNuevo->tipoCuenta = isset($asiento->TIPO_CUENTA)?$asiento->TIPO_CUENTA:"";
+        $asientoNuevo->modoCuenta = isset($asiento->MODO_CUENTA)?$asiento->MODO_CUENTA:"";
+
+
+
+        return $asientoNuevo;
+    }
+
+    
+    
 }

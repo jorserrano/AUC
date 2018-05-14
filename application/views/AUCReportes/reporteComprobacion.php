@@ -36,12 +36,12 @@ $this->load->view("template/html_left_menu");
 
                     <div class="align-left">
 
-                        <h3 class="content-header-title mb-0">Generación de reportes</h3>
+                        <h3 class="content-header-title mb-0">Generaci&oacute;n de reportes</h3>
                         <div class="row breadcrumbs-top">
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="#" id="exportExcel" onclick="generateExcel()">Exportar a Excel: en formato xlsx</a>
+                                        <a href="#" id="exportExcel" onclick="generateExcel()">Exportar a Excel los datos mostrados</a>
                                     </li>
                                 </ol>
                             </div>
@@ -61,10 +61,9 @@ $this->load->view("template/html_left_menu");
             <table>
                 <tr>
                     <th colspan="8" class="text-center">
-                        AUTOBUSES UNIDOS DE CORONADO S.A<br/>
-                        BALANCE DE COMPROBACION<br/>
-                        AL 31 DE OCTUBRE DE 2017
-
+                        <?= $companiaNombre ?><br/>
+                        BALANCE DE COMPROBACI&Oacute;N<br/>
+                        AL <?= $lastDayMonth ?> DE <?= $monthName ?> DE <?= $anno ?>
                     </th>
                 </tr>
                 <tr>
@@ -81,7 +80,7 @@ $this->load->view("template/html_left_menu");
                         MOVIMIENTO MENSUAL
                     </th>
                     <th>
-                        MENSUAL
+                        SALDO
                     </th>
                     <th COLSPAN="2">
                         SALDO ACTUAL
