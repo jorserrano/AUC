@@ -159,9 +159,6 @@
                                 <div class="card" id="repComprob">
                                     <div class="card-content">
                                         <div class="media align-items-stretch">
-                                            <div class="p-2 text-center bg-primary bg-darken-2">
-                                                <i class="glyphicon glyphicon-paste"></i>
-                                            </div>
                                             <div class="p-2 bg-gradient-x-primary white media-body">
                                                 <h5 class="center">GENERAR</h5>
                                                 <h5  class="center">Reporte de Comprobaci&oacute;n</h5>
@@ -177,12 +174,24 @@
                                 <div class="card" id="repSituac">
                                     <div class="card-content">
                                         <div class="media align-items-stretch">
-                                            <div class="p-2 text-center bg-primary bg-darken-2">
-                                                <i class="glyphicon glyphicon-paste"></i>
-                                            </div>
                                             <div class="p-2 bg-gradient-x-primary white media-body">
                                                 <h5 class="center">GENERAR</h5>
                                                 <h5  class="center">Reporte de Situac&oacute;n</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="col-sm-4" style="padding: 1rem">
+                                <div class="card" id="repResultado">
+                                    <div class="card-content">
+                                        <div class="media align-items-stretch">
+                                            <div class="p-2 bg-gradient-x-primary white media-body">
+                                                <h5 class="center">GENERAR</h5>
+                                                <h5  class="center">Reporte Resultado</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -246,6 +255,19 @@ $this->load->view("template/html_footer_section");
                     }
 
                 });
+                
+                
+                //Reporte Resultado
+                $("#repResultado").click(function () {
+                    //e.preventDefault();
+                    try {
+                        $('#formulario').attr('action', "<?= $url ?>/AUCReportes/reporteResultado").submit();
+                    } catch (err) {
+                        alert(err.message);
+                    }
+
+                });
+                
             });
 
 

@@ -11,6 +11,10 @@
 class AUCReportes extends CI_Controller {
 
 
+    public function login(){
+        
+    }
+    
 
     public function index()
     {
@@ -219,6 +223,113 @@ class AUCReportes extends CI_Controller {
         $this->load->view('AUCReportes/excelSituacion', $data);
     }
 
+    
+    
+    
+    public function reporteResultado()
+    {
+
+
+        $mes = $this->input->post('perodoMes');
+        $anno = $this->input->post('perodoAnno');
+        $idCompania = $this->input->post('selCompania');
+        
+        $compania = new stdClass();
+        if(intval($idCompania) > 0 ){
+            $compania = $this->empresa_model->getEmpresaById($idCompania);
+        }
+        else{
+            return $this->index();
+        }
+        
+        
+        $this->session->set_userdata('mes', $mes);
+        $this->session->set_userdata('anno', $anno);
+        $this->session->set_userdata('compania', $compania);
+        
+        
+
+        $datosDetalle =  $this->asientoDetalle_model->getAsientosResultadoDetalle($anno, $mes, $idCompania);
+
+        $datosTotales = $this->asientoDetalle_model->getAsientosResultadoTotales($anno, $mes, $idCompania);
+
+        //$query = $this->asientoDetalle_model->getQuery('2017','10');
+
+
+        $monthName = $this->getMonthName($mes);
+        $lastDayMonth = $this->getUltimoDiaMes(intval($anno), intval($mes));
+        
+        $companiaNombre = read_assign_property($compania, "nombre", "");
+        
+        $data = Array(
+          "mensaje" => ""
+        , "url"     => site_url()
+        , "asientosDetalle" => $datosDetalle
+        , "asientosTotales" => $datosTotales
+        , "monthName" => $monthName
+        , "lastDayMonth" => $lastDayMonth
+        , "anno" => $anno
+        , "companiaNombre" => $companiaNombre
+        //, "query" => $query
+        );
+
+        //$this->load->view('welcome_message', $data);
+
+        $this->load->view('AUCReportes/reporteResultado', $data);
+    }
+
+    
+    
+    public function generaExcelResultado()
+    {
+
+        $mes = $this->session->mes;
+        $anno = $this->session->anno;
+        $compania = $this->session->compania;
+
+        $datosDetalle = array();
+        $datosTotales = array();
+        if( isset($this->session->compania) ){
+            
+            $datosDetalle =  $this->asientoDetalle_model->getAsientosSituacionDetalle($anno, $mes, $compania->id);
+
+            $datosTotales = $this->asientoDetalle_model->getAsientosSituacionTotales($anno, $mes, $compania->id);
+
+        }
+        else{
+            return $this->index();
+        }
+        
+
+        //$query = $this->asientoDetalle_model->getQuery('2017','10');
+
+
+        $monthName = $this->getMonthName($mes);
+        $lastDayMonth = $this->getUltimoDiaMes(intval($anno), intval($mes));
+        
+        $data = Array(
+                      "mensaje" => ""
+                    //, "url"     => site_url()
+                    , "asientosDetalle" => $datosDetalle
+                    , "asientosTotales" => $datosTotales
+                    , "monthName" => $monthName
+                    , "lastDayMonth" => $lastDayMonth
+                    , "anno" => $anno
+                    , "mes" => $mes
+                    , "companiaNombre" => $compania->nombre
+                     );
+
+        //$this->load->view('welcome_message', $data);
+
+        $this->load->view('AUCReportes/excelResultado', $data);
+    }
+
+    
+    
+    
+    
+    
+    
     
     private function getMonthName($mes){
         $nombre = "";

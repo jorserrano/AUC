@@ -78,6 +78,53 @@ class asientoDetalle_model extends CI_Model{
     }
     
     
+    
+    
+    //Totales Situación
+    public function getAsientosResultadoTotales($anno, $mes, $compania){
+
+
+        $sql1 =  "CALL SP_REP_RESULTADOS_TOTALES($anno,$mes, $compania);";
+
+       //echo $sql;
+        
+        
+        if (mysqli_more_results($this->db->conn_id)) {
+            mysqli_next_result($this->db->conn_id);
+        }
+        
+
+        $query1 = $this->db->query($sql1);
+
+        $result = $query1->result();
+
+        $arr = $this->parseAsientosSituacion($result);
+
+        //var_dump($sql);
+        return $arr;
+
+    }
+
+    //Detalle Asientos Situación
+    public function getAsientosResultadoDetalle($anno, $mes, $compania){
+
+
+        $sql =  "CALL SP_REP_RESULTADOS_DETALLE($anno,$mes, $compania);";
+
+       //echo $sql;
+
+        $query = $this->db->query($sql);
+
+        $result = $query->result();
+
+        $arr = $this->parseAsientosSituacion($result);
+
+        //var_dump($sql);
+        return $arr;
+
+    }
+    
+    
     public function getQuery($anno, $mes, $compania){
 
         $sql = " CALL GEN_REP_BALANCE_COMPROBAC($anno,$mes, $compania);";
