@@ -35,7 +35,7 @@
 <!--                            -->
 <!--                            <div class="dropdown-divider"></div>-->
 
-                            <form  action="<?= $url ?>/Indicadores/index" method="post">
+                            <form  action="<?= $url ?>/AUCReportes/index" method="post">
                                 <input type="hidden" value="1" name="salir" />
                                 <button type="submit" class="btn btn-cyan dropdown-item" style="margin-left: 1rem;">
                                     <i class="ft-power"></i> Logout

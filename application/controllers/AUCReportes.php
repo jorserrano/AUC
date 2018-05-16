@@ -13,16 +13,60 @@ class AUCReportes extends CI_Controller {
 
     public function login(){
         
+        $mensaje = "";
+        $usuario = "";
+        if($this->input->post('user')){
+            if($this->input->post('userPassword')){
+                if(strlen($this->input->post('user')) < 3){
+                    $mensaje = "Usuario muy corto";
+                }else{
+                    if(strlen($this->input->post('userPassword')) < 1){
+                        $mensaje = "Password requerido";
+                    }
+                    else{
+                        $usuarioReg = $this->usuario_model->loginUsuario($this->input->post('user')
+                                                                        , $this->input->post('userPassword'));
+                        
+                        var_dump($usuarioReg);
+                        
+                        if($usuarioReg != null){
+                            $usuarioNombre = read_assign_property($usuarioReg[0], "nombre", "");
+                            if( strlen($usuarioNombre) > 0 ){
+                                $this->session->set_userdata('usuario', $usuarioReg);
+                                $newURL = site_url() . '/AUCReportes/index';
+                                header('Location: ' . $newURL);
+                                die();
+                                return;
+                            }
+                        }else{
+                            $mensaje = "Usuario no valido";
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        
+        $data = Array(
+                      "mensaje"   => $mensaje
+                    , "url"       => site_url()
+                    , "usuario"   => $usuario
+                    , "empresas"  => 1
+                    );
+        $this->load->view('login/login', $data);
     }
     
 
     public function index()
     {
 
+        $usuarioRegistrado = $this->metComun();
+        
         $empresas = $this->empresa_model->getEmpresas();
 
         $data = Array(
-                        "mensaje" => ""
+                      "mensaje"   => ""
                     , "url"       => site_url()
                     , "empresas"  => $empresas
                     );
@@ -35,8 +79,6 @@ class AUCReportes extends CI_Controller {
 
     public function reporteComprobacion()
     {
-
-
         $mes = $this->input->post('perodoMes');
         $anno = $this->input->post('perodoAnno');
         $idCompania = $this->input->post('selCompania');
@@ -353,9 +395,42 @@ class AUCReportes extends CI_Controller {
         return $nombre;
     }
     
-    function getUltimoDiaMes($elAnio,$elMes) {
+    private function getUltimoDiaMes($elAnio,$elMes) {
         return date("d",(mktime(0,0,0,$elMes+1,1,$elAnio)-1));
     }
     
       
+    
+
+    //Valido Usuario registrado
+    private function metComun(){
+
+        if ( isset( $_POST['salir'] ) ) {
+//            session_unset();
+//            session_destroy();
+
+            $this->session->sess_destroy();
+
+            $newURL = site_url() . '/AUCReportes/login';
+            header('Location: ' . $newURL);
+            die();
+            return;
+
+        }
+
+        $usuarioRegistrado = new stdClass();
+        //Consulto si el usuario existe
+        if (isset($this->session->usuario)) {
+            $usuarioRegistrado = $this->session->usuario;// $_SESSION['usuario'];
+        } else {
+            $newURL = site_url() . '/AUCReportes/login';
+            header('Location: ' . $newURL);
+            die();
+            return;
+        }
+
+        return $usuarioRegistrado;
+    }
+    
+    
 }
