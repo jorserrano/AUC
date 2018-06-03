@@ -6,7 +6,7 @@
  * Time: 3:08 PM
  */
 
-    require_once ("dompdf/dompdf_config.inc.php");
+    //require_once ("dompdf/dompdf_config.inc.php");
 
 class AUCReportes extends CI_Controller {
 
@@ -333,9 +333,9 @@ class AUCReportes extends CI_Controller {
         $datosTotales = array();
         if( isset($this->session->compania) ){
             
-            $datosDetalle =  $this->asientoDetalle_model->getAsientosSituacionDetalle($anno, $mes, $compania->id);
+            $datosDetalle =  $this->asientoDetalle_model->getAsientosResultadoDetalle($anno, $mes, $compania->id);
 
-            $datosTotales = $this->asientoDetalle_model->getAsientosSituacionTotales($anno, $mes, $compania->id);
+            $datosTotales = $this->asientoDetalle_model->getAsientosResultadoTotales($anno, $mes, $compania->id);
 
         }
         else{

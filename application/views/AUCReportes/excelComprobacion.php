@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename=Balance_Comprobacion_".$anno."_".$mes.".xls");
+header("Content-Disposition: attachment; filename=Balance_Comprobacion_" . $anno . "_" . $mes . ".xls");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -108,7 +108,7 @@ header("Content-Disposition: attachment; filename=Balance_Comprobacion_".$anno."
                             <tr class="<?= $detalle ?>">
                                 <td align="right">
                                     <strong>
-                            <?= read_assign_property($asientoDetalle, "cuenta", "") ?> 
+                                        <?= read_assign_property($asientoDetalle, "cuenta", "") ?> 
                                     </strong>
                                 </td>
                                 <td>
@@ -118,83 +118,83 @@ header("Content-Disposition: attachment; filename=Balance_Comprobacion_".$anno."
                                 </td>
                                 <td align="right">
                                     <strong>
-            <?= number_format(read_assign_property($asientoDetalle, "acum_ant_debe", ""), 2, ',', ' ') ?>
+                                        <?= read_assign_property($asientoDetalle, "acum_ant_debe", "") ?>
                                     </strong>
                                 </td>
                                 <td  align="right">
                                     <strong>
-                                        <?= number_format(read_assign_property($asientoDetalle, "acum_ant_haber", ""), 2, ',', ' ') ?>
+                                        <?= read_assign_property($asientoDetalle, "acum_ant_haber", "") ?>
                                     </strong>
                                 </td>
                                 <td align="right">
                                     <strong>
-                                        <?= number_format(read_assign_property($asientoDetalle, "mes_debe", ""), 2, ',', ' ') ?>
+                                        <?= read_assign_property($asientoDetalle, "mes_debe", "") ?>
                                     </strong>
                                 </td>
                                 <td align="right">
                                     <strong>
-                                        <?= number_format(read_assign_property($asientoDetalle, "mes_haber", ""), 2, ',', ' ') ?>
-                                    </strong>
-
-                                </td>
-                                <td align="right">
-                                    <strong>
-            <?= number_format(read_assign_property($asientoDetalle, "mensual", ""), 2, ',', ' ') ?>
+                                        <?= read_assign_property($asientoDetalle, "mes_haber", "") ?>
                                     </strong>
 
                                 </td>
                                 <td align="right">
                                     <strong>
-            <?= number_format(read_assign_property($asientoDetalle, "acum_debe", ""), 2, ',', ' ') ?>
+                                        <?= read_assign_property($asientoDetalle, "mensual", "") ?>
+                                    </strong>
+
+                                </td>
+                                <td align="right">
+                                    <strong>
+                                        <?= read_assign_property($asientoDetalle, "acum_debe", "") ?>
                                     </strong>
                                 </td>
                                 <td align="right">
                                     <strong>
-                                        <?= number_format(read_assign_property($asientoDetalle, "acum_haber", ""), 2, ',', ' ') ?>
+                                        <?= read_assign_property($asientoDetalle, "acum_haber", "") ?>
                                     </strong>
                                 </td>
                             </tr>
 
-                                        <?php
-                                    } else {
-                                        ?>
+                            <?php
+                        } else {
+                            ?>
 
                             <tr class="<?= $detalle ?>">
                                 <td align="right">
-                            <?= read_assign_property($asientoDetalle, "cuenta", "") ?>
+                                    <?= read_assign_property($asientoDetalle, "cuenta", "") ?>
                                 </td>
                                 <td>
                                     &nbsp; <?= read_assign_property($asientoDetalle, "descripcion", "") ?>
                                 </td>
                                 <td align="right">
-                                    <?= number_format(read_assign_property($asientoDetalle, "acum_ant_debe", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "acum_ant_debe", "") ?>
                                 </td>
                                 <td  align="right">
-            <?= number_format(read_assign_property($asientoDetalle, "acum_ant_haber", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "acum_ant_haber", "") ?>
                                 </td>
                                 <td align="right">
-                                    <?= number_format(read_assign_property($asientoDetalle, "mes_debe", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "mes_debe", "") ?>
 
                                 </td>
                                 <td align="right">
-            <?= number_format(read_assign_property($asientoDetalle, "mes_haber", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "mes_haber", "") ?>
                                 </td>
                                 <td align="right">
-            <?= number_format(read_assign_property($asientoDetalle, "mensual", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "mensual", "") ?>
                                 </td>
                                 <td align="right">
-                                    <?= number_format(read_assign_property($asientoDetalle, "acum_debe", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "acum_debe", "") ?>
                                 </td>
                                 <td align="right">
-                                    <?= number_format(read_assign_property($asientoDetalle, "acum_haber", ""), 2, ',', ' ') ?>
+                                    <?= read_assign_property($asientoDetalle, "acum_haber", "") ?>
                                 </td>
                             </tr>
 
-            <?php
-        }
-    }
-}
-?>
+                            <?php
+                        }
+                    }
+                }
+                ?>
 
 
 

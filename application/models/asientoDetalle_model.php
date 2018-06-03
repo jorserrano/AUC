@@ -80,7 +80,7 @@ class asientoDetalle_model extends CI_Model{
     
     
     
-    //Totales Situación
+    //Totales Resultado
     public function getAsientosResultadoTotales($anno, $mes, $compania){
 
 
@@ -105,7 +105,7 @@ class asientoDetalle_model extends CI_Model{
 
     }
 
-    //Detalle Asientos Situación
+    //Detalle Asientos Resultado
     public function getAsientosResultadoDetalle($anno, $mes, $compania){
 
 

@@ -160,8 +160,8 @@
                                     <div class="card-content">
                                         <div class="media align-items-stretch">
                                             <div class="p-2 bg-gradient-x-primary white media-body">
-                                                <h5 class="center">GENERAR</h5>
                                                 <h5  class="center">Reporte de Comprobaci&oacute;n</h5>
+                                                <h5 class="center">GENERAR</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -175,8 +175,8 @@
                                     <div class="card-content">
                                         <div class="media align-items-stretch">
                                             <div class="p-2 bg-gradient-x-primary white media-body">
-                                                <h5 class="center">GENERAR</h5>
                                                 <h5  class="center">Reporte de Situac&oacute;n</h5>
+                                                <h5 class="center">GENERAR</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -190,8 +190,8 @@
                                     <div class="card-content">
                                         <div class="media align-items-stretch">
                                             <div class="p-2 bg-gradient-x-primary white media-body">
-                                                <h5 class="center">GENERAR</h5>
                                                 <h5  class="center">Reporte Resultado</h5>
+                                                <h5 class="center">GENERAR</h5>
                                             </div>
                                         </div>
                                     </div>

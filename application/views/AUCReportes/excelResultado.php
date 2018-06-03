@@ -14,9 +14,9 @@ function agregarTotales1($asientosTotales) {
             <tr >
                 <td> &nbsp; </td>
                 <td> <U> <strong>TOTAL " . read_assign_property($asientosTotales, "descripcion", "") . " </strong> </U> </td>
-                <td align='right'> <U> <strong>" . number_format(read_assign_property($asientosTotales, "saldoAnterior", ""), 2, ',', ' ') . "</strong> </U> </td>
-                <td align='right'> <U> <strong>" . number_format(read_assign_property($asientosTotales, "mensual", ""), 2, ',', ' ') . "</strong> </U> </td>
-                <td align='right'> <U> <strong>" . number_format(read_assign_property($asientosTotales, "saldoActual", ""), 2, ',', ' ') . "</strong> </U> </td>
+                <td align='right'> <U> <strong>" . read_assign_property($asientosTotales, "saldoAnterior", 0) . "</strong> </U> </td>
+                <td align='right'> <U> <strong>" . read_assign_property($asientosTotales, "mensual", 0) . "</strong> </U> </td>
+                <td align='right'> <U> <strong>" . read_assign_property($asientosTotales, "saldoActual", 0) . "</strong> </U> </td>
             </tr>";
 }
 
@@ -33,9 +33,9 @@ function agregarTotales2($descripcion, $totAnt, $mensual, $totAct) {
             <tr >
                 <td> &nbsp; </td>
                 <td> <U> <strong> TOTAL $descripcion</strong> </U> </td>
-                <td align='right'> <U> <strong>" . number_format($totAnt, 2, ',', ' ') . "</strong> </U> </td>
-                <td align='right'> <U> <strong>" . number_format($mensual, 2, ',', ' ') . "</strong> </U> </td>
-                <td align='right'> <U> <strong>" . number_format($totAct, 2, ',', ' ') . "</strong> </U> </td>
+                <td align='right'> <U> <strong>" . $totAnt . "</strong> </U> </td>
+                <td align='right'> <U> <strong>" . $mensual . "</strong> </U> </td>
+                <td align='right'> <U> <strong>" . $totAct . "</strong> </U> </td>
             </tr>";
 }
 
@@ -70,7 +70,7 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>BALANCE DE SITUACIÓN</title>
+        <title>BALANCE DE RESULTADO</title>
     </head>
     <body >
 
@@ -81,7 +81,7 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
             <tr>
                 <th colspan="8" class="text-center">
                     <?= $companiaNombre ?><br/>
-                    BALANCE DE SITUACI&Oacute;N<br/>
+                    BALANCE DE RESULTADO<br/>
                     AL <?= $lastDayMonth ?> DE <?= $monthName ?> DE <?= $anno ?>
                 </th>
             </tr>
@@ -162,20 +162,20 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                         ?>
 
                         <tr>
-                            <td class="numeric">
-                                <?= read_assign_property($asientoDetalle, "cuenta", "") ?> 
+                            <td style="text-align: right">
+                                <?= read_assign_property($asientoDetalle, "cuenta", "--") ?> 
                             </td>
                             <td>
                                 &nbsp; <?= read_assign_property($asientoDetalle, "descripcion", "") ?>
                             </td>
-                            <td class="numeric">
-                                <?= number_format(read_assign_property($asientoDetalle, "saldoAnterior", ""), 2, ',', ' ') ?>
+                            <td style="text-align: right">
+                                <?= read_assign_property($asientoDetalle, "saldoAnterior", 0) ?>
                             </td>
-                            <td class="numeric">
-                                <?= number_format(read_assign_property($asientoDetalle, "mensual", ""), 2, ',', ' ') ?>
+                            <td style="text-align: right">
+                                <?= read_assign_property($asientoDetalle, "mensual", 0)  ?>
                             </td>
-                            <td class="numeric">
-                                <?= number_format(read_assign_property($asientoDetalle, "saldoActual", ""), 2, ',', ' ') ?>
+                            <td style="text-align: right">
+                                <?= read_assign_property($asientoDetalle, "saldoActual", 0) ?>
                             </td>
                         </tr>
 

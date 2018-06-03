@@ -121,7 +121,7 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                         <tr>
                             <th colspan="8" class="text-center">
                                 <?= $companiaNombre ?><br/>
-                                BALANCE DE SITUACI&Oacute;N<br/>
+                                BALANCE DE RESULTADO<br/>
                                 AL <?= $lastDayMonth ?> DE <?= $monthName ?> DE <?= $anno ?>
                             </th>
                         </tr>
