@@ -152,6 +152,9 @@ class AUCReportes extends CI_Controller {
 
         $datosTotales = $this->asientoDetalle_model->getAsientosSituacionTotales($anno, $mes, $idCompania);
 
+        $datosTotalesPeriodo = $this->asientoDetalle_model->getAsientosSituacionTotalesPeriodo($anno, $mes, $idCompania);
+
+        
         //$query = $this->asientoDetalle_model->getQuery('2017','10');
 
 
@@ -160,11 +163,14 @@ class AUCReportes extends CI_Controller {
         
         $companiaNombre = read_assign_property($compania, "nombre", "");
         
+        //echo $datosTotalesPeriodo[0]->mensual;
+        
         $data = Array(
           "mensaje" => ""
         , "url"     => site_url()
         , "asientosDetalle" => $datosDetalle
         , "asientosTotales" => $datosTotales
+        , "datosTotalesPeriodo" => $datosTotalesPeriodo[0]
         , "monthName" => $monthName
         , "lastDayMonth" => $lastDayMonth
         , "anno" => $anno
@@ -236,6 +242,8 @@ class AUCReportes extends CI_Controller {
 
             $datosTotales = $this->asientoDetalle_model->getAsientosSituacionTotales($anno, $mes, $compania->id);
 
+            $datosTotalesPeriodo = $this->asientoDetalle_model->getAsientosSituacionTotalesPeriodo($anno, $mes, $compania->id);
+
         }
         else{
             return $this->index();
@@ -253,6 +261,7 @@ class AUCReportes extends CI_Controller {
                     //, "url"     => site_url()
                     , "asientosDetalle" => $datosDetalle
                     , "asientosTotales" => $datosTotales
+                    , "datosTotalesPeriodo" => $datosTotalesPeriodo[0]
                     , "monthName" => $monthName
                     , "lastDayMonth" => $lastDayMonth
                     , "anno" => $anno

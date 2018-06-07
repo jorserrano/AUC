@@ -1,6 +1,12 @@
 <?php
 
-function agregarTotales1($asientosTotales) {
+function agregarTotales1($asientosTotales, $datosTotalesPeriodo) {
+    
+    if( strcmp( read_assign_property($asientosTotales, "cuenta", ""), "300-0-0-0" ) == 0){
+        $asientosTotales->saldoAnterior = $asientosTotales->saldoAnterior +  $datosTotalesPeriodo->saldoAnterior;
+        $asientosTotales->mensual = $asientosTotales->mensual +  $datosTotalesPeriodo->mensual;
+        $asientosTotales->saldoActual = $asientosTotales->saldoActual +  $datosTotalesPeriodo->saldoActual;
+    }
     echo "
             <tr >
                 <td> &nbsp; </td>
@@ -168,7 +174,7 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                                     if (strcmp($tipoCuentaDet, $tipoCuentaTot) != 0) {
 
                                         if ($mostarTotales) {
-                                            agregarTotales1($asientosTotales[$totales - 1]);
+                                            agregarTotales1($asientosTotales[$totales - 1], $datosTotalesPeriodo);
 
                                             if (strcmp($tipoCuentaDet, "4") == 0) {
                                                 agregarTotales2("ACTIVOS", $totAnterior, $totMes, $totAcum);
@@ -196,6 +202,14 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                                         agregarEncabezadoCuentas($deprecAcum);
                                         $deprecAcum = "";
                                     }
+                                    
+                                    if( strcmp( read_assign_property($asientoDetalle, "cuenta", ""), "300-999-0-0" ) == 0){
+                                        $asientoDetalle->saldoAnterior = $asientoDetalle->saldoAnterior +  $datosTotalesPeriodo->saldoAnterior;
+                                        $asientoDetalle->mensual = $asientoDetalle->mensual +  $datosTotalesPeriodo->mensual;
+                                        $asientoDetalle->saldoActual = $asientoDetalle->saldoActual +  $datosTotalesPeriodo->saldoActual;
+                                    }
+                                    
+                                    
                                     ?>
 
                                     <tr>
@@ -218,14 +232,21 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
 
                                     <?php
                                 }
-                                agregarTotales1($asientosTotales[$totales - 1]);
+                                agregarTotales1($asientosTotales[$totales - 1], $datosTotalesPeriodo);
+                                
+                                
+                                $totAnterior = floatval($totAnterior) + floatval($datosTotalesPeriodo->saldoAnterior);
+                                $totMes =  floatval($totMes) +   floatval($datosTotalesPeriodo->mensual);
+                                $totAcum =  floatval($totAcum) +   floatval($datosTotalesPeriodo->saldoActual);
+                                
                                 agregarTotales2("PASIVOS", $totAnterior, $totMes, $totAcum);
                             }
                         }
                         ?>
 
                     </table>
-
+                    
+                    
 
                     <form id="formulario" action="" method="post">
 

@@ -2,7 +2,19 @@
 header("Content-type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=Balance_Situacion_".$anno."_".$mes.".xls");
 
-function agregarTotales1($asientosTotales) {
+function agregarTotales1($asientosTotales, $datosTotalesPeriodo) {
+    
+    if( strcmp( read_assign_property($asientosTotales, "cuenta", ""), "300-0-0-0" ) == 0){
+        
+        $asientosTotales->saldoAnterior = $asientosTotales->saldoAnterior + read_assign_property($datosTotalesPeriodo, "saldoAnterior", 0)  ;
+        $asientosTotales->mensual = $asientosTotales->mensual +  read_assign_property($datosTotalesPeriodo, "mensual", 0);
+        $asientosTotales->saldoActual = $asientosTotales->saldoActual +  read_assign_property($datosTotalesPeriodo, "saldoActual", 0);
+                            
+//        $asientosTotales->saldoAnterior = $asientosTotales->saldoAnterior +  $datosTotalesPeriodo->saldoAnterior;
+//        $asientosTotales->mensual = $asientosTotales->mensual +  $datosTotalesPeriodo->mensual;
+//        $asientosTotales->saldoActual = $asientosTotales->saldoActual +  $datosTotalesPeriodo->saldoActual;
+        
+    }
     echo "
             <tr >
                 <td> &nbsp; </td>
@@ -126,7 +138,7 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                         if (strcmp($tipoCuentaDet, $tipoCuentaTot) != 0) {
 
                             if ($mostarTotales) {
-                                agregarTotales1($asientosTotales[$totales - 1]);
+                                agregarTotales1($asientosTotales[$totales - 1], $datosTotalesPeriodo);
 
                                 if (strcmp($tipoCuentaDet, "4") == 0) {
                                     agregarTotales2("ACTIVOS", $totAnterior, $totMes, $totAcum);
@@ -154,6 +166,15 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                             agregarEncabezadoCuentas($deprecAcum);
                             $deprecAcum = "";
                         }
+                        
+                        
+                        if( strcmp( read_assign_property($asientoDetalle, "cuenta", ""), "300-999-0-0" ) == 0){
+                            $asientoDetalle->saldoAnterior = $asientoDetalle->saldoAnterior + read_assign_property($datosTotalesPeriodo, "saldoAnterior", 0)  ;
+                            $asientoDetalle->mensual = $asientoDetalle->mensual +  read_assign_property($datosTotalesPeriodo, "mensual", 0);
+                            $asientoDetalle->saldoActual = $asientoDetalle->saldoActual +  read_assign_property($datosTotalesPeriodo, "saldoActual", 0);
+                        }
+                        
+                        
                         ?>
 
                         <tr>
@@ -176,7 +197,13 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
 
                         <?php
                     }
-                    agregarTotales1($asientosTotales[$totales - 1]);
+                    agregarTotales1($asientosTotales[$totales - 1], $datosTotalesPeriodo);
+
+
+                    $totAnterior = floatval($totAnterior) + floatval($datosTotalesPeriodo->saldoAnterior);
+                    $totMes =  floatval($totMes) +   floatval($datosTotalesPeriodo->mensual);
+                    $totAcum =  floatval($totAcum) +   floatval($datosTotalesPeriodo->saldoActual);
+                                
                     agregarTotales2("PASIVOS", $totAnterior, $totMes, $totAcum);
                 }
             }

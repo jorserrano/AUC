@@ -78,6 +78,31 @@ class asientoDetalle_model extends CI_Model{
     }
     
     
+    //Totales Periodo
+    public function getAsientosSituacionTotalesPeriodo($anno, $mes, $compania){
+
+
+        $sql =  "CALL SP_REP_ACUM_PERIODO($anno,$mes, $compania);";
+
+       //echo $sql;
+        
+        
+        if (mysqli_more_results($this->db->conn_id)) {
+            mysqli_next_result($this->db->conn_id);
+        }
+        
+
+        $query1 = $this->db->query($sql);
+
+        $result = $query1->result();
+
+        $arr = $this->parseAsientosSituacion($result);
+
+        //var_dump($sql);
+        return $arr;
+
+    }
+
     
     
     //Totales Resultado
@@ -195,16 +220,16 @@ class asientoDetalle_model extends CI_Model{
     function parseAsientoSituacion($asiento ){
         $asientoNuevo = new stdClass();
         $asientoNuevo->cuenta = isset($asiento->CUENTA)?$asiento->CUENTA:"";
-        $asientoNuevo->descripcion = isset($asiento->DESCRIPCION)?$asiento->DESCRIPCION:"";
+        $asientoNuevo->descripcion = isset( $asiento->DESCRIPCION)?$asiento->DESCRIPCION:"";
 
-        $asientoNuevo->saldoAnterior = isset($asiento->SALDO_ANTERIOR)?$asiento->SALDO_ANTERIOR:"";
-        $asientoNuevo->mensual = isset($asiento->MENSUAL)?$asiento->MENSUAL:"";
+        $asientoNuevo->saldoAnterior = isset( $asiento->SALDO_ANTERIOR)?$asiento->SALDO_ANTERIOR:"";
+        $asientoNuevo->mensual = isset( $asiento->MENSUAL)?$asiento->MENSUAL:"";
 
-        $asientoNuevo->saldoActual = isset($asiento->ACUM_MES)?$asiento->ACUM_MES:"";
+        $asientoNuevo->saldoActual = isset( $asiento->ACUM_MES)?$asiento->ACUM_MES:"";
   
-        $asientoNuevo->esDetalle = isset($asiento->ES_DETALLE)?$asiento->ES_DETALLE:"";
-        $asientoNuevo->tipoCuenta = isset($asiento->TIPO_CUENTA)?$asiento->TIPO_CUENTA:"";
-        $asientoNuevo->modoCuenta = isset($asiento->MODO_CUENTA)?$asiento->MODO_CUENTA:"";
+        $asientoNuevo->esDetalle = isset( $asiento->ES_DETALLE)?$asiento->ES_DETALLE:"";
+        $asientoNuevo->tipoCuenta = isset( $asiento->TIPO_CUENTA)?$asiento->TIPO_CUENTA:"";
+        $asientoNuevo->modoCuenta = isset( $asiento->MODO_CUENTA)?$asiento->MODO_CUENTA:"";
 
 
 

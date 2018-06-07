@@ -122,6 +122,7 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                     $totAnterior = 0;
                     $totMes = 0;
                     $totAcum = 0;
+                    $cuentas500 = false;
                     foreach ($asientosDetalle as $asientoDetalle) {
 
                         $tipoCuentaDet = read_assign_property($asientoDetalle, "tipoCuenta", "");
@@ -133,12 +134,13 @@ function agregarEncabezadoCuentas($cuentaDetalle) {
                             if ($mostarTotales) {
                                 agregarTotales1($asientosTotales[$totales - 1]);
 
-                                if ($totales == 3) {
+                                if (intval ($cuentaDetNiv1) >= 500 && !$cuentas500) {
                                     agregarTotales2("INGRESOS", $totAnterior, $totMes, $totAcum);
 
                                     $totAnterior = 0;
                                     $totMes = 0;
                                     $totAcum = 0;
+                                    $cuentas500 = true;
                                 }
                             } else {
                                 $mostarTotales = true;
